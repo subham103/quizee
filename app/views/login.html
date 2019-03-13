@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="/css/reg_style.css">
+</head>
+<body>
+	<form action="/login" method="POST" id="form">
+		<div class="container">
+			<h3>Log In</h3>
+			<hr>
+			<input type="text" name="log_email" placeholder="Email" value="{{ email }}" required>
+			<br>
+			<input type="password" name="log_password" placeholder="Password" required>
+			<br>
+			<div class="clearfix">
+				<input type="submit" name="login_btn" class="signupbtn" value="Login">
+			</div>
+			<br>
+		</div>
+
+		<div class="login">
+			<a href="/signup">Sign Up?</a>
+		</div>
+	</form>
+</body>
+</html>

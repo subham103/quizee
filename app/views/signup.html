@@ -1,0 +1,53 @@
+<!-- how to echo errors in signup page after respective elements  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ title }}</title>
+	<link rel="stylesheet" href="/css/reg_style.css">
+</head>
+<body>
+
+	<form action="/signup" method="POST" id="form">
+		
+		<div class="container">
+			<h3>Sign Up</h3>
+			<hr>
+			<input type="text" name="reg_fname" placeholder="First Name" value="{{ firstname }}" required>
+			<br>
+			
+			<input type="text" name="reg_lname" placeholder="Last Name" value="{{ lastname }}" required>
+			<br>
+			
+			<input type="text" name="reg_uname" placeholder="User Name" value="{{ username }}" required>
+			<br>
+			{{ user_invalid | raw}} 
+			{{ user_exist | raw}} 	
+			<input type="text" name="reg_email" placeholder="Email" value="{{ email }}" required>
+			<br>
+			{{ email_used | raw}} 
+			{{ email_invalid | raw}} 
+			<input type="password" name="reg_password" placeholder="Password" required>
+			<br>
+			<input type="password" name="reg_password2" placeholder="Confirm Password" required>
+			<br>
+			{{ password_mismatch | raw}} 
+			{{ password_invalid | raw}} 
+			{{ password_short | raw}} 
+			<div class="clearfix">
+				<input type="submit" name="signupbtn" class="signupbtn" value="Register">
+			</div>
+			<br>
+		</div>
+		
+		<!-- <?php if(in_array("<span style='color: #14C800;'>You're all set! Goahead and login!</span><br>", $error_array)) echo "<span style='color: #14C800;'>You're all set! Go ahead and login!</span><br>"; ?> -->
+		
+		<div class="login">
+			<a href="/login">Sign In?</a>
+		</div>
+
+	</form>
+	
+	
+</body>
+</html>
