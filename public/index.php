@@ -6,6 +6,7 @@ Toro::serve(array(
     "/" => "Controllers\\HomeController" ,
     "/signup" => "Controllers\\SignupController" ,
     "/login" => "Controllers\\LoginController" ,
-    "/home" => "Controllers\\UserController"
+    "/home" => "Controllers\\UserController" ,
+    "/logout" => "Controllers\\LogoutController"
 ));
 ?>

@@ -49,14 +49,13 @@
                 $_SESSION['registration_username'] = $registration_username;
                 $_SESSION['registration_email'] = $registration_email;
 
+                // $uname = $registration_username;
                 if(filter_var($registration_email, FILTER_VALIDATE_EMAIL)) {
 
                     $email = filter_var($registration_email, FILTER_VALIDATE_EMAIL);
-                    $no_rows_email = Signup::ValidateEmail($email);
+                    $no_rows = Signup::Validate($email, $registration_username);
 
-                    if(sizeof($no_rows_email) > 0 ){
-                    //     var_dump($no_rows_email);
-                    // die();
+                    if(sizeof($no_rows['Email']) > 0 ){
                         array_push($this->error_array, "Email already in use <br>");
                     }
 
@@ -80,13 +79,10 @@
                 if(preg_match('/[^A-Za-z0-9]/', $registration_username)) {
                     array_push($this->error_array, "Your username can only contain english characters or numbers <br>");
                 }else{
-                    // check if username already exists
-                    $uname = $registration_username;
+                    // //Check if uname already exists
+                    $no_rows = Signup::Validate($email, $registration_username);
                     
-                    //Check if uname already exists
-                    $no_rows_user = Signup::ValidateUsername($uname);
-                    
-                    if(sizeof($no_rows_user) > 0) {
+                    if(sizeof($no_rows['Username']) > 0) {
                         array_push($this->error_array, "username already in use <br>");
                     }
                 }
@@ -126,10 +122,6 @@
                 }else{
                     $_SESSION['user_exist'] = "";
                 }
-
-                // $this->error_array = [];
-                // var_dump($this->error_array);
-                //     die();
                 if(empty($this->error_array)) {
                     $password = md5($registration_password); //Encrypt password before sending to database
                     Signup::AddUser($registration_firstname, $registration_lastname, $registration_username, $registration_email, $password, $date);

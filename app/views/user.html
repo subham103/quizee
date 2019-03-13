@@ -53,7 +53,38 @@
             
         </div>
         <div class="main_column column">
-              {{ form | raw }}  
+            <!-- {{ form | raw }}   -->
+            {% if username != "admin" %}
+                <span>Latest Problems</span><hr><br>
+                {% for data in questions %}
+                    {{ loop.index }} )&nbsp; {{ data.question }} <br>
+                    a) &nbsp; {{ data.option_a }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    b)&nbsp; {{ data.option_b }} <br> 
+                    c) &nbsp; {{ data.option_c }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    d) &nbsp; {{ data.option_d }} <br>
+                    <form action='/home' class='post_form1' method='POST'>
+                        <input type='text' name='answer{{ loop.index }}' class='ans' required><br>
+                        <input type='submit' name='post_ans{{ loop.index }}' id='post_btn'><br>
+                    </form><hr>
+                {% endfor %}
+            {% else %}
+                <form action="/home" class="post_form" method="POST">
+                    <textarea name="post_text" id="post_text" placeholder="Wanna post new questions?">
+                    </textarea>
+                    <br><br>
+                    <input type="text" name="post_a" placeholder="Option A" required>
+                    <input type="text" name="post_b" placeholder="Option B" required>
+                    <br><br>
+                    <input type="text" name="post_c" placeholder="Option C" required>
+                    <input type="text" name="post_d" placeholder="Option D" required>
+                    <br><br>
+                    <input type="text" name="post_correct" placeholder="Correct Answer" required>
+                    <input type="text" name="points" placeholder="Points" required>
+                    <br><br>
+                    <input type="submit" name="post" id="post_btn">
+                    <hr>
+                </form>
+            {% endif %}
         </div>
         <div class="user_info_leaderboard column">
             <h2>LeaderBoard</h2><hr>

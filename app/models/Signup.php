@@ -14,9 +14,9 @@
 		}
 
 		public static function AddUser($firstname, $lastname, $username, $email, $password, $signup_date){
-			$db = self::getDB();
-			$user = $db->prepare("INSERT INTO user_info (firstname, lastname, username, email, password, signup_date) VALUES (:firstname, :lastname, :username, :email, :password, :signup_date)");
-			$user->execute(array(
+			$db_adduser = self::getDB();
+			$user_adduser = $db_adduser->prepare("INSERT INTO user_info (firstname, lastname, username, email, password, signup_date) VALUES (:firstname, :lastname, :username, :email, :password, :signup_date)");
+			$user_adduser->execute(array(
 				"firstname" => $firstname,
 				"lastname" => $lastname,
 				"username" => $username,
@@ -25,36 +25,31 @@
 				"signup_date" => $signup_date
 			));
 		}//sql injection byparsing
-		
-		public static function ValidateEmail($email){
-			$db = self::getDB();
-			$user = $db->prepare("SELECT email FROM user_info WHERE email=:email");
-			$user->execute(array(
+		public static function Validate($email, $uname){
+			#ValidateEmail
+			$db_validateEmail = self::getDB();
+			$user_validateEmail = $db_validateEmail->prepare("SELECT email FROM user_info WHERE email=:email");
+			$user_validateEmail->execute(array(
 				"email" => $email
 			));
 
-			$data = $user->fetchAll();
-			 // var_dump($data);
-			 // die();
-            //Count the number of rows returned
+			$data_validateEmail = $user_validateEmail->fetchAll();
+            // return $data;
 
-            return $data;
-		}
-
-		public static function ValidateUsername($uname){
-			$db = self::getDB();
-			$user = $db->prepare("SELECT username FROM user_info WHERE username=:username");
-			$user->execute(array(
+            #ValidateUsername
+            $db_validateUsername = self::getDB();
+			$user_validateUsername = $db_validateUsername->prepare("SELECT username FROM user_info WHERE username=:username");
+			$user_validateUsername->execute(array(
 				"username" => $uname
 			));
-			$data = $user->fetchAll();
-			// var_dump($data);
-			// die();
-			
-            //Count the number of rows returned
-            //$num_rows = mysqli_num_rows($user);
-
+			$data_validateUsername = $user_validateUsername->fetchAll();
+            // return $data;
+            $data = array(
+				"Email" => $data_validateEmail ,
+				"Username" => $data_validateUsername
+            );
             return $data;
+
 		}
 	}
  ?>
