@@ -3,7 +3,7 @@
     "description":"Link Saving App",
     "require":{
         "torophp/torophp":    "dev-master",
-        "twig/twig":"2.0"
+        "twig/twig":"2.15.3"
     },
     "autoload":{
         "psr-4":{
